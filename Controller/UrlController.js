@@ -25,6 +25,7 @@ const GET_ASYNC = promisify(redisClient.GET).bind(redisClient);
 
 
 const longUrl = async function (req, res) {
+    try{
     let data1 = req.body
     let longUrl = data1.longUrl
 
@@ -56,6 +57,10 @@ const longUrl = async function (req, res) {
     const savedData = await urlModel.create(data)
     await SET_ASYNC(`${longUrl}`, JSON.stringify(savedData))
     return res.status(201).send({ status: "true", data: { longUrl: savedData.longUrl, shortUrl: savedData.shortUrl, urlCode: savedData.urlCode } })
+}
+catch (err) {
+    res.status(500).send({ Error: err.message })
+}
 }
 module.exports.longUrl = longUrl
 
