@@ -2,7 +2,6 @@ const mongoose = require("mongoose")
 
 const urlModel = new mongoose.Schema({
 
-  
   longUrl: {
     type: String,
     required: true,
